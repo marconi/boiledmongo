@@ -1,0 +1,39 @@
+from pymongo import Connection
+from pymongo.errors import ConnectionFailure
+
+from pyramid.config import Configurator
+from pyramid.events import NewRequest, subscriber
+from pyramid_beaker import session_factory_from_settings
+from {{package}}.resources import Root
+
+def main(global_config, **settings):
+    """ This function returns a Pyramid WSGI application.
+    """
+    config = Configurator(root_factory=Root, settings=settings)
+    config.add_static_view('static', '{{package}}:static')
+
+    # init beaker session
+    session_factory = session_factory_from_settings(settings)
+    config.set_session_factory(session_factory)
+
+    # connect to mongodb
+    try:
+        connection = Connection(host=settings['mongodb.host'],
+                                port=int(settings['mongodb.port']))
+        db_connection = connection[settings['mongodb.db']]
+        config.registry.settings['db_connection'] = db_connection
+    except ConnectionFailure:
+        raise Exception('Unable to connect to MongoDB')
+
+    # includes
+    config.include('{{package}}.views.add_routes')
+
+    config.scan(package='{{package}}.lib')
+    config.scan(package='{{package}}.views')
+    return config.make_wsgi_app()
+
+
+@subscriber(NewRequest)
+def add_mongo_db(event):
+    settings = event.request.registry.settings
+    event.request.db = settings['db_connection']

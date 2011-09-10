@@ -1,0 +1,21 @@
+Features:
+
+1. Assets helper with versioning for browser caching:
+   ${h.assets_url(request, '/favicon.ico')}
+2. Settings helper:
+   ${h.get_settings(request, 'meta_expires', '1d')}
+3. Routes helper:
+   ${url('home')}
+4. Sting translation and localization:
+   ${_('This should be translated')}
+   ${localizer('This should be localized')}
+5. All posted data are checked for CSRF validation.
+   You can display CSRF token in your forms using: ${session.get_csrf_token()}
+
+How to:
+
+1. Install it just like a normal python package:
+   python setup.py install
+2. Running paster create --list-templates will show the boiledmongo project template
+   and you can create a project like:
+   paster create -t boiledmongo <projectname>
