@@ -11,6 +11,7 @@ Features:
    ${localizer('This should be localized')}
 5. All posted data are checked for CSRF validation.
    You can display CSRF token in your forms using: ${session.get_csrf_token()}
+6. Has built-in assets from http://html5boilerplate.com/
 
 How to:
 
