@@ -25,7 +25,7 @@ setup(name='boiled-mongo',
         '': exts,
     },
     zip_safe=False,
-    install_requires=['pyramid>=1.0', 'pymongo'],
+    install_requires=['pyramid>=1.0', 'pymongo', 'mongoengine'],
     keywords="pyramid project template",
     entry_points="""
         [paste.paster_create_template]
