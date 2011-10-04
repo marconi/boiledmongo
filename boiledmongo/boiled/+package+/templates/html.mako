@@ -25,7 +25,7 @@
 
     <div id="container">
         <header>
-            <h1 class="title"><a href="${url('home')}">PlayMongo</a></h1>
+            <h1 class="title"><a href="${url('home')}">BoiledMongo</a></h1>
         </header>
         <div id="main" role="main">
             <%block name="content"></%block>
